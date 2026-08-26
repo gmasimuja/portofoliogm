@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { 
-  ChevronDown, 
   MapPin, 
   Briefcase, 
   Code, 
@@ -18,10 +17,11 @@ import {
 export default function Portfolio() {
   const [activeTab, setActiveTab] = useState('geophysics');
 
-  // Link Google Drive Portofolio
-  const gdrivePortfolioLink = "https://drive.google.com/file/d/1Ldv6JTImdvt8BUOaXwKOI0rj4BSmcDyD/view?usp=sharing";
-  // Link CV (Bisa diupdate nanti)
-  const cvLink = "#"; 
+  // Link to the CV file stored in the public folder
+  const cvLink = "/CV_Gantang_Masimuja.pdf";
+  // Link to the Portfolio PDF on Google Drive
+  const gdriveLink = "https://drive.google.com/file/d/1Ldv6JTImdvt8BUOaXwKOI0rj4BSmcDyD/view?usp=sharing";
+  const emailLink = "mailto:gmasimuja@gmail.com";
 
   const webProjects = [
     {
@@ -95,7 +95,6 @@ export default function Portfolio() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-amber-500/30">
       
-      {}
       {/* HEADER / NAV */}
       <nav className="fixed w-full z-50 top-0 border-b border-white/5 bg-slate-950/80 backdrop-blur-md">
         <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
@@ -110,8 +109,7 @@ export default function Portfolio() {
           </div>
           <a 
             href={cvLink}
-            target={cvLink !== "#" ? "_blank" : "_self"}
-            rel="noopener noreferrer"
+            download="CV_Gantang_Masimuja.pdf"
             className="flex items-center gap-2 px-5 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-sm font-medium transition-all"
           >
             <Download size={16} className="text-amber-500" />
@@ -120,7 +118,6 @@ export default function Portfolio() {
         </div>
       </nav>
 
-      {}
       {/* HERO SECTION */}
       <section className="relative pt-40 pb-20 px-6 max-w-6xl mx-auto flex flex-col justify-center min-h-[90vh]">
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-amber-500/10 blur-[120px] rounded-full pointer-events-none"></div>
@@ -155,7 +152,6 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {}
       {/* CAPABILITIES / EXPERTISE */}
       <section id="expertise" className="py-24 px-6 bg-slate-900/50 border-y border-white/5">
         <div className="max-w-6xl mx-auto">
@@ -198,7 +194,6 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {}
       {/* DUAL PORTFOLIO SECTION */}
       <section id="portfolio" className="py-24 px-6 max-w-6xl mx-auto">
         
@@ -224,7 +219,6 @@ export default function Portfolio() {
           </div>
         </div>
 
-        {}
         {/* TAB CONTENT: GEOPHYSICS */}
         {activeTab === 'geophysics' && (
           <div className="grid md:grid-cols-2 gap-6 animate-in fade-in duration-500">
@@ -253,7 +247,6 @@ export default function Portfolio() {
           </div>
         )}
 
-        {}
         {/* TAB CONTENT: WEB DEV */}
         {activeTab === 'webdev' && (
           <div className="grid md:grid-cols-2 gap-6 animate-in fade-in duration-500">
@@ -286,7 +279,6 @@ export default function Portfolio() {
         )}
       </section>
 
-      {}
       {/* CTA / CONTACT */}
       <section id="contact" className="py-32 px-6">
         <div className="max-w-4xl mx-auto bg-gradient-to-br from-slate-900 to-slate-950 rounded-[3rem] p-12 md:p-20 text-center border border-white/10 relative overflow-hidden">
@@ -298,12 +290,12 @@ export default function Portfolio() {
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="mailto:gmasimuja@gmail.com" className="w-full sm:w-auto px-8 py-4 bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold rounded-full transition-all flex items-center justify-center gap-2">
+            <a href={emailLink} className="w-full sm:w-auto px-8 py-4 bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold rounded-full transition-all flex items-center justify-center gap-2">
               <Mail size={18} />
               Hubungi via Email
             </a>
             <a 
-              href={gdrivePortfolioLink} 
+              href={gdriveLink} 
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium rounded-full transition-all flex items-center justify-center gap-2"
@@ -315,7 +307,6 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {}
       {/* FOOTER */}
       <footer className="border-t border-white/5 py-10 px-6">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
@@ -323,14 +314,14 @@ export default function Portfolio() {
             © {new Date().getFullYear()} Gantang Masimuja, M.T. All rights reserved.
           </div>
           <div className="flex gap-4">
-            <a href="https://linkedin.com/in/YOUR_LINKEDIN" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 transition-colors" aria-label="LinkedIn">
+            <a href="https://linkedin.com/in/gantang-masimuja-b9a122173/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 transition-colors" aria-label="LinkedIn">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
                 <rect x="2" y="9" width="4" height="12"></rect>
                 <circle cx="4" cy="4" r="2"></circle>
               </svg>
             </a>
-            <a href="https://github.com/YOUR_GITHUB" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 transition-colors" aria-label="GitHub">
+            <a href="https://github.com/gmasimuja" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 transition-colors" aria-label="GitHub">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
                 <path d="M9 18c-4.51 2-5-2-7-2"></path>
