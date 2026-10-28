@@ -23,7 +23,7 @@ export default function Home() {
             <span className="block font-bold display-tight text-[1.05rem]">
               Gantang Masimuja, M.T.
             </span>
-            <span className="block text-xs text-ink-2">
+            <span className="hidden sm:block text-xs text-ink-2">
               Konsultan geofisika dan geoteknik
             </span>
           </a>
@@ -33,7 +33,7 @@ export default function Home() {
             <a href="#cara-kerja" className="nav-link">Cara kerja</a>
             <a href="#profil" className="nav-link">Profil</a>
           </nav>
-          <a href={rfqMailto} className="btn btn-primary btn-sm">
+          <a href={rfqMailto} className="btn btn-primary btn-sm whitespace-nowrap">
             Minta penawaran
           </a>
         </div>
