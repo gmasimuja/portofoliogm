@@ -5,7 +5,10 @@ const W = 1200;
 const H = 320;
 const X0 = 30;
 const X1 = 1170;
-const SPACING = 15; // px per electrode = 5 m
+const ELECTRODES = 72;
+const SPACING_M = 5; // metres between electrodes
+const LINE_M = (ELECTRODES - 1) * SPACING_M; // 355 m
+const PX_PER_M = (X1 - X0) / LINE_M;
 
 const surface = (x: number) =>
   30 + 5 * Math.sin(x / 170) + 2.5 * Math.sin(x / 53 + 1);
@@ -44,10 +47,12 @@ function line(fn: Boundary) {
   return `M${pts.join(" L")}`;
 }
 
-const electrodes: number[] = [];
-for (let x = X0; x <= X1; x += SPACING) electrodes.push(x);
+const electrodes: number[] = Array.from(
+  { length: ELECTRODES },
+  (_, i) => X0 + i * SPACING_M * PX_PER_M,
+);
 
-const distanceTicks = [0, 100, 200, 300, 380];
+const distanceTicks = [0, 100, 200, 300, LINE_M];
 const depthTicks = [0, 10, 20, 30, 40];
 const depthY = (d: number) => 32 + (d / 40) * 280;
 
@@ -136,8 +141,8 @@ export default function CrossSection() {
         {/* Axes */}
         <g className="xsec-axis" fill="var(--ink-2)" fontSize="13">
           {distanceTicks.map((d) => (
-            <text key={d} x={X0 + d * 3} y={-14} textAnchor="middle">
-              {d === 380 ? "380 m" : d}
+            <text key={d} x={X0 + d * PX_PER_M} y={-14} textAnchor="middle">
+              {d === LINE_M ? `${LINE_M} m` : d}
             </text>
           ))}
           {depthTicks.map((d) => (
@@ -159,7 +164,8 @@ export default function CrossSection() {
 
       <figcaption className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between text-sm text-ink-2">
         <span className="max-w-[60ch]">
-          Ilustrasi penampang resistivitas 2D, 77 elektroda dengan spasi 5 m. Area
+          Ilustrasi penampang resistivitas 2D, {ELECTRODES} elektroda dengan spasi{" "}
+          {SPACING_M} m. Area
           berwarna terang di tengah adalah anomali resistivitas tinggi yang dapat
           menandakan rongga. Bukan data proyek.
         </span>
