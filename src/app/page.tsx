@@ -1,333 +1,320 @@
-"use client";
+import { Download, Mail } from "lucide-react";
+import CrossSection from "./components/CrossSection";
+import ProjectRecord from "./components/ProjectRecord";
+import { contact, rfqMailto, services, steps, webProjects } from "./data";
 
-import React, { useState } from 'react';
-import { 
-  MapPin, 
-  Briefcase, 
-  Code, 
-  Zap, 
-  Download, 
-  ExternalLink, 
-  Mail, 
-  Activity,
-  Layers,
-  Database
-} from 'lucide-react';
+const facts = [
+  { value: "Sejak 2019", label: "survei lapangan bersama Laboratorium Fisika Bumi ITB" },
+  { value: "25+ lokasi", label: "proyek energi, gedung, bendungan, tol, dan industri" },
+  { value: "11 metode", label: "seismik, kelistrikan, radar, dan uji in-situ" },
+  { value: "2 negara", label: "Indonesia dan Timor-Leste" },
+];
 
-export default function Portfolio() {
-  const [activeTab, setActiveTab] = useState('geophysics');
-
-  // Link to the CV file stored in the public folder
-  const cvLink = "/CV_Gantang_Masimuja.pdf";
-  // Link to the Portfolio PDF on Google Drive
-  const gdriveLink = "https://drive.google.com/file/d/1Ldv6JTImdvt8BUOaXwKOI0rj4BSmcDyD/view?usp=sharing";
-  const emailLink = "mailto:gmasimuja@gmail.com";
-
-  const webProjects = [
-    {
-      title: "Ganesha Cendekia",
-      role: "Founder & Developer",
-      desc: "Platform pendidikan dan pengembangan akademik. Dirancang dengan fokus pada skalabilitas dan user experience.",
-      link: "https://ganeshacendekia.com",
-      tags: ["Web App", "Education", "Next.js"]
-    },
-    {
-      title: "Qurbanku Online",
-      role: "Lead Developer",
-      desc: "Platform e-commerce musiman untuk manajemen dan pemesanan hewan kurban secara digital.",
-      link: "https://qurbanku.online",
-      tags: ["E-Commerce", "Payment Gateway"]
-    },
-    {
-      title: "Solo Bangun Pratama",
-      role: "Fullstack Developer",
-      desc: "Website company profile dan katalog layanan konstruksi dengan desain profesional dan responsif.",
-      link: "https://solobangunpratama.com",
-      tags: ["Company Profile", "SEO Optimized"]
-    },
-    {
-      title: "Finance Assistant Automation",
-      role: "Automation Engineer",
-      desc: "Sistem otomasi tingkat lanjut menggunakan n8n untuk asisten finansial, memangkas waktu rekonsiliasi data.",
-      link: "#",
-      tags: ["n8n", "Workflow Automation", "API"]
-    }
-  ];
-
-  const geoProjects = [
-    {
-      sector: "Energi & Pembangkit Listrik",
-      items: [
-        { year: "2024-2025", name: "Proyek Geothermal Star Energy (Darajat & Gn. Salak)", method: "Seismic Downhole" },
-        { year: "2025", name: "PLTS Pulau Bulan", method: "Geolistrik & Thermal Resistivity" },
-        { year: "2024", name: "Proyek PLTN Kalimantan Barat", method: "Seismic Crosshole" },
-        { year: "2021", name: "Bendungan PLTA Tapsel", method: "MASW, Seismic Refraction, Logging" },
-      ]
-    },
-    {
-      sector: "Infrastruktur Strategis",
-      items: [
-        { year: "2026", name: "Gedung DPR, DPD II, OIKN", method: "MASW" },
-        { year: "2025", name: "RS Vertikal Riau & Jambi", method: "MASW" },
-        { year: "2025", name: "Gedung Bank Indonesia", method: "Geolistrik & GPR" },
-        { year: "2021", name: "Gedung Taspen Mandiri", method: "Seismic Downhole" },
-      ]
-    },
-    {
-      sector: "Transportasi & Sumber Daya Air",
-      items: [
-        { year: "2025", name: "Proyek Kabel Laut PLN Sultra", method: "Geolistrik 2D" },
-        { year: "2021-2022", name: "Tol Semarang-Jogja & Solo-Jogja", method: "Seismic Downhole, MASW" },
-        { year: "2019-2022", name: "Bendungan (Pulau Seram, Kebumen, Trenggalek, Tripa 3)", method: "PMT, Seismic Downhole/Refraction, MASW" },
-      ]
-    },
-    {
-      sector: "Industri & Pertambangan",
-      items: [
-        { year: "2024", name: "Proyek Timbunan PT. Ceri, Kolaka", method: "Seismic Downhole" },
-        { year: "2022", name: "Smelter Freeport, Timika", method: "MASW" },
-        { year: "2022", name: "Kawasan Industri Batang", method: "Geolistrik" },
-        { year: "2019", name: "Smelter PT. Antam, Halmahera Timur", method: "Geolistrik & Seismic Downhole" },
-      ]
-    }
-  ];
-
+export default function Home() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-amber-500/30">
-      
-      {/* HEADER / NAV */}
-      <nav className="fixed w-full z-50 top-0 border-b border-white/5 bg-slate-950/80 backdrop-blur-md">
-        <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="font-bold text-xl tracking-tighter text-white">
-            GM<span className="text-amber-500">.</span>
-          </div>
-          <div className="hidden md:flex gap-8 text-sm font-medium text-slate-400">
-            <a href="#about" className="hover:text-amber-400 transition-colors">Profil</a>
-            <a href="#expertise" className="hover:text-amber-400 transition-colors">Keahlian</a>
-            <a href="#portfolio" className="hover:text-amber-400 transition-colors">Portofolio</a>
-            <a href="#contact" className="hover:text-amber-400 transition-colors">Kontak</a>
-          </div>
-          <a 
-            href={cvLink}
-            download="CV_Gantang_Masimuja.pdf"
-            className="flex items-center gap-2 px-5 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-sm font-medium transition-all"
-          >
-            <Download size={16} className="text-amber-500" />
-            <span className="hidden sm:inline">Unduh CV</span>
+    <div className="min-h-screen bg-paper text-ink">
+      <a href="#main" className="skip-link">
+        Langsung ke konten
+      </a>
+
+      <header className="site-header">
+        <div className="wrap flex h-16 items-center justify-between gap-6">
+          <a href="#" className="leading-tight">
+            <span className="block font-bold display-tight text-[1.05rem]">
+              Gantang Masimuja, M.T.
+            </span>
+            <span className="block text-xs text-ink-2">
+              Konsultan geofisika dan geoteknik
+            </span>
+          </a>
+          <nav aria-label="Navigasi utama" className="hidden md:flex gap-7 text-sm">
+            <a href="#layanan" className="nav-link">Layanan</a>
+            <a href="#proyek" className="nav-link">Proyek</a>
+            <a href="#cara-kerja" className="nav-link">Cara kerja</a>
+            <a href="#profil" className="nav-link">Profil</a>
+          </nav>
+          <a href={rfqMailto} className="btn btn-primary btn-sm">
+            Minta penawaran
           </a>
         </div>
-      </nav>
+      </header>
 
-      {/* HERO SECTION */}
-      <section className="relative pt-40 pb-20 px-6 max-w-6xl mx-auto flex flex-col justify-center min-h-[90vh]">
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-amber-500/10 blur-[120px] rounded-full pointer-events-none"></div>
-        
-        <div className="relative z-10 max-w-4xl">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-sm font-medium mb-8">
-            <Activity size={16} />
-            M.T. in Geophysics & Software Engineering
-          </div>
-          
-          <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight leading-[1.1] mb-6">
-            Gantang Masimuja
-            <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-600">
-              Expertise Meets Technology.
-            </span>
+      <main id="main">
+        {/* HERO */}
+        <section className="wrap pt-14 md:pt-20">
+          <p className="text-ink-2 text-base md:text-lg">
+            Konsultan geofisika dan geoteknik, Laboratorium Fisika Bumi ITB
+          </p>
+          <h1 className="display mt-4 max-w-[17ch] text-[2.6rem] leading-[1.02] sm:text-6xl md:text-[5.2rem]">
+            Melihat ke bawah tanah sebelum Anda membangun di atasnya.
           </h1>
-          
-          <p className="text-lg md:text-xl text-slate-400 leading-relaxed max-w-2xl mb-10">
-            Penyedia layanan investigasi bawah permukaan untuk infrastruktur strategis nasional, 
-            sekaligus kreator solusi digital dan automasi bisnis. Menjembatani sains kebumian dan teknologi web modern.
+          <p className="mt-6 max-w-[58ch] text-lg leading-relaxed text-ink-2">
+            Investigasi bawah permukaan untuk pembangkit listrik, gedung, bendungan,
+            jalan tol, dan kawasan industri: parameter dinamik tanah, deteksi rongga,
+            dan eksplorasi air tanah, dengan laporan yang siap dipakai tim desain.
           </p>
-
-          <div className="flex flex-wrap gap-4">
-            <a href="#portfolio" className="px-8 py-4 bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold rounded-full transition-all">
-              Lihat Portofolio
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a href={rfqMailto} className="btn btn-primary">
+              <Mail size={18} aria-hidden="true" />
+              Minta penawaran survei
             </a>
-            <a href="#contact" className="px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium rounded-full transition-all">
-              Hubungi Saya
+            <a href={contact.cv} download="CV_Gantang_Masimuja.pdf" className="btn btn-quiet">
+              <Download size={18} aria-hidden="true" />
+              Unduh CV (PDF)
             </a>
           </div>
-        </div>
-      </section>
 
-      {/* CAPABILITIES / EXPERTISE */}
-      <section id="expertise" className="py-24 px-6 bg-slate-900/50 border-y border-white/5">
-        <div className="max-w-6xl mx-auto">
-          <div className="mb-16">
-            <h2 className="text-3xl font-bold text-white mb-4">Kapabilitas Utama</h2>
-            <div className="h-1 w-20 bg-amber-500 rounded-full"></div>
+          <div className="mt-14 md:mt-16">
+            <CrossSection />
           </div>
+        </section>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="p-8 rounded-3xl bg-slate-900 border border-white/5 hover:border-amber-500/30 transition-colors group">
-              <div className="w-14 h-14 bg-amber-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <Activity className="text-amber-500" size={28} />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">Metode Seismik</h3>
-              <p className="text-slate-400 leading-relaxed text-sm">
-                Analisis dinamis tanah dengan akurasi tinggi menggunakan MASW, Seismic Refraction, Seismic Downhole, Seismic Crosshole, & Mikro Seismik.
-              </p>
-            </div>
-            
-            <div className="p-8 rounded-3xl bg-slate-900 border border-white/5 hover:border-amber-500/30 transition-colors group">
-              <div className="w-14 h-14 bg-amber-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <Layers className="text-amber-500" size={28} />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">Elektrik & In-situ Test</h3>
-              <p className="text-slate-400 leading-relaxed text-sm">
-                Investigasi komprehensif via Geolistrik 2D, Thermal Resistivity, GPR, Logging Gamma Ray, dan Pressure Meter Test (PMT).
-              </p>
-            </div>
-
-            <div className="p-8 rounded-3xl bg-slate-900 border border-white/5 hover:border-amber-500/30 transition-colors group">
-              <div className="w-14 h-14 bg-amber-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <Code className="text-amber-500" size={28} />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">Web & Automation</h3>
-              <p className="text-slate-400 leading-relaxed text-sm">
-                Pengembangan platform digital modern (Next.js, Tailwind), e-commerce, hingga otomasi alur kerja (n8n) untuk efisiensi bisnis.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* DUAL PORTFOLIO SECTION */}
-      <section id="portfolio" className="py-24 px-6 max-w-6xl mx-auto">
-        
-        {/* Tabs */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div>
-            <h2 className="text-3xl font-bold text-white mb-4">Rekam Jejak Proyek</h2>
-            <p className="text-slate-400 max-w-xl">Pilih kategori untuk melihat pengalaman komprehensif saya di bidang investigasi bawah permukaan maupun rekayasa perangkat lunak.</p>
-          </div>
-          <div className="flex bg-slate-900 p-1.5 rounded-full border border-white/5 w-fit">
-            <button 
-              onClick={() => setActiveTab('geophysics')}
-              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all ${activeTab === 'geophysics' ? 'bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/20' : 'text-slate-400 hover:text-white'}`}
-            >
-              Geofisika & Geoteknik
-            </button>
-            <button 
-              onClick={() => setActiveTab('webdev')}
-              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all ${activeTab === 'webdev' ? 'bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/20' : 'text-slate-400 hover:text-white'}`}
-            >
-              Web & Software
-            </button>
-          </div>
-        </div>
-
-        {/* TAB CONTENT: GEOPHYSICS */}
-        {activeTab === 'geophysics' && (
-          <div className="grid md:grid-cols-2 gap-6 animate-in fade-in duration-500">
-            {geoProjects.map((category, idx) => (
-              <div key={idx} className="bg-slate-900/50 rounded-3xl p-8 border border-white/5">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-2 h-8 bg-amber-500 rounded-full"></div>
-                  <h3 className="text-xl font-bold text-white">{category.sector}</h3>
-                </div>
-                <div className="space-y-4">
-                  {category.items.map((item, i) => (
-                    <div key={i} className="group flex flex-col sm:flex-row sm:items-start gap-4 p-4 rounded-2xl hover:bg-white/5 border border-transparent hover:border-white/5 transition-all">
-                      <div className="text-amber-500 font-mono text-sm pt-1 shrink-0">{item.year}</div>
-                      <div>
-                        <div className="text-white font-medium mb-1">{item.name}</div>
-                        <div className="text-slate-400 text-sm flex items-center gap-2">
-                          <Activity size={14} className="text-slate-500" />
-                          {item.method}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+        {/* FACTS */}
+        <section aria-label="Ringkasan pengalaman" className="wrap mt-16">
+          <dl className="facts">
+            {facts.map((f) => (
+              <div key={f.value} className="fact">
+                <dt className="display text-2xl md:text-3xl">{f.value}</dt>
+                <dd className="mt-1 text-sm text-ink-2 leading-snug">{f.label}</dd>
               </div>
             ))}
-          </div>
-        )}
+          </dl>
+        </section>
 
-        {/* TAB CONTENT: WEB DEV */}
-        {activeTab === 'webdev' && (
-          <div className="grid md:grid-cols-2 gap-6 animate-in fade-in duration-500">
-            {webProjects.map((project, idx) => (
-              <div key={idx} className="group bg-slate-900 rounded-3xl p-8 border border-white/5 hover:border-amber-500/40 hover:-translate-y-1 transition-all duration-300">
-                <div className="flex justify-between items-start mb-6">
+        {/* SERVICES */}
+        <section id="layanan" className="wrap section">
+          <div className="section-head">
+            <h2 className="display text-3xl md:text-5xl">Layanan</h2>
+            <p className="text-ink-2 max-w-[52ch] text-lg">
+              Setiap survei dimulai dari pertanyaan proyek Anda, bukan dari alat. Ini
+              pertanyaan yang paling sering saya bantu jawab.
+            </p>
+          </div>
+
+          <div className="mt-10 border-t border-rule">
+            {services.map((s) => (
+              <article key={s.question} className="service-row">
+                <div>
+                  <h3 className="display text-xl md:text-2xl leading-snug">
+                    {s.question}
+                  </h3>
+                  <p className="mt-3 text-ink-2 leading-relaxed max-w-[50ch]">
+                    {s.answer}
+                  </p>
+                </div>
+                <dl className="service-meta">
                   <div>
-                    <h3 className="text-2xl font-bold text-white mb-1 group-hover:text-amber-400 transition-colors">{project.title}</h3>
-                    <div className="text-amber-500 text-sm font-medium">{project.role}</div>
+                    <dt>Metode</dt>
+                    <dd>{s.methods.join(", ")}</dd>
                   </div>
-                  {project.link !== "#" && (
-                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-amber-500/20 transition-all">
-                      <ExternalLink size={18} />
-                    </a>
-                  )}
-                </div>
-                <p className="text-slate-400 mb-8 leading-relaxed">
-                  {project.desc}
-                </p>
-                <div className="flex flex-wrap gap-2 mt-auto">
-                  {project.tags.map((tag, i) => (
-                    <span key={i} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-slate-300">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
+                  <div>
+                    <dt>Hasil</dt>
+                    <dd>{s.deliverables}</dd>
+                  </div>
+                  <div>
+                    <dt>Umum dipakai untuk</dt>
+                    <dd>{s.usedFor}</dd>
+                  </div>
+                </dl>
+              </article>
             ))}
           </div>
-        )}
-      </section>
+        </section>
 
-      {/* CTA / CONTACT */}
-      <section id="contact" className="py-32 px-6">
-        <div className="max-w-4xl mx-auto bg-gradient-to-br from-slate-900 to-slate-950 rounded-[3rem] p-12 md:p-20 text-center border border-white/10 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 blur-[80px] rounded-full pointer-events-none"></div>
-          
-          <h2 className="text-4xl font-bold text-white mb-6">Mari Berkolaborasi</h2>
-          <p className="text-slate-400 text-lg mb-10 max-w-2xl mx-auto">
-            Mencari partner untuk proyek investigasi bawah tanah atau membutuhkan solusi digital dan otomasi untuk perusahaan Anda?
-          </p>
-          
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href={emailLink} className="w-full sm:w-auto px-8 py-4 bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold rounded-full transition-all flex items-center justify-center gap-2">
-              <Mail size={18} />
-              Hubungi via Email
-            </a>
-            <a 
-              href={gdriveLink} 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium rounded-full transition-all flex items-center justify-center gap-2"
-            >
-              <Download size={18} />
-              Unduh Portofolio PDF
-            </a>
+        {/* PROJECTS */}
+        <section id="proyek" className="section-band">
+          <div className="wrap section">
+            <div className="section-head">
+              <h2 className="display text-3xl md:text-5xl">Rekam jejak</h2>
+              <p className="text-ink-2 max-w-[52ch] text-lg">
+                Proyek yang saya kerjakan langsung, bersama Laboratorium Fisika Bumi
+                ITB dan mitra kontraktor geoteknik. Saring berdasarkan metode yang
+                Anda butuhkan.
+              </p>
+            </div>
+            <div className="mt-10">
+              <ProjectRecord />
+            </div>
+            <p className="mt-10 text-sm text-ink-2">
+              Rincian proyek dan contoh laporan tersedia di{" "}
+              <a
+                href={contact.portfolioPdf}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-link"
+              >
+                portofolio PDF
+              </a>
+              .
+            </p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* FOOTER */}
-      <footer className="border-t border-white/5 py-10 px-6">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="text-slate-500 text-sm">
-            © {new Date().getFullYear()} Gantang Masimuja, M.T. All rights reserved.
+        {/* PROCESS */}
+        <section id="cara-kerja" className="wrap section">
+          <div className="section-head">
+            <h2 className="display text-3xl md:text-5xl">Cara kerja</h2>
+            <p className="text-ink-2 max-w-[52ch] text-lg">
+              Lima tahap dari permintaan sampai laporan, dengan satu kontak teknis
+              dari awal hingga akhir.
+            </p>
           </div>
-          <div className="flex gap-4">
-            <a href="https://linkedin.com/in/gantang-masimuja-b9a122173/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 transition-colors" aria-label="LinkedIn">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                <rect x="2" y="9" width="4" height="12"></rect>
-                <circle cx="4" cy="4" r="2"></circle>
-              </svg>
-            </a>
-            <a href="https://github.com/gmasimuja" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 transition-colors" aria-label="GitHub">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
-                <path d="M9 18c-4.51 2-5-2-7-2"></path>
-              </svg>
-            </a>
+          <ol className="steps mt-10">
+            {steps.map((s, i) => (
+              <li key={s.title} className="step">
+                <span className="step-num" aria-hidden="true">
+                  {i + 1}
+                </span>
+                <h3 className="font-semibold text-lg">{s.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink-2">{s.body}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        {/* PROFILE */}
+        <section id="profil" className="section-band">
+          <div className="wrap section grid gap-10 md:grid-cols-[1fr_1.3fr]">
+            <div>
+              <h2 className="display text-3xl md:text-5xl">Profil</h2>
+            </div>
+            <div className="space-y-5 text-lg leading-relaxed max-w-[60ch]">
+              <p>
+                Saya Gantang Masimuja, konsultan geofisika di Laboratorium Fisika Bumi
+                ITB sejak 2019. Latar belakang fisika dan geoteknik membuat saya
+                menyajikan hasil survei dalam bahasa yang dipakai insinyur desain:
+                parameter, kedalaman, dan rekomendasi, bukan sekadar gambar penampang.
+              </p>
+              <dl className="profile-list">
+                <div>
+                  <dt>Pendidikan</dt>
+                  <dd>
+                    Magister Teknik Geoteknik, ITB (2025)
+                    <br />
+                    Sarjana Fisika, ITB (2019)
+                  </dd>
+                </div>
+                <div>
+                  <dt>Afiliasi</dt>
+                  <dd>Laboratorium Fisika Bumi, Institut Teknologi Bandung</dd>
+                </div>
+                <div>
+                  <dt>Wilayah kerja</dt>
+                  <dd>Seluruh Indonesia dan luar negeri, berbasis di Jawa Tengah</dd>
+                </div>
+                <div>
+                  <dt>Bahasa</dt>
+                  <dd>Indonesia, Inggris, Arab</dd>
+                </div>
+              </dl>
+            </div>
           </div>
+        </section>
+
+        {/* CONTACT */}
+        <section id="kontak" className="wrap section">
+          <div className="contact">
+            <div>
+              <h2 className="display text-3xl md:text-5xl max-w-[16ch]">
+                Ceritakan proyek Anda.
+              </h2>
+              <p className="mt-5 text-lg leading-relaxed max-w-[48ch] contact-muted">
+                Kirim lokasi, tujuan survei, perkiraan luas area atau panjang
+                lintasan, target kedalaman, dan jadwal. Proposal teknis dan biaya akan
+                saya siapkan berdasarkan data itu.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a href={rfqMailto} className="btn btn-invert">
+                  <Mail size={18} aria-hidden="true" />
+                  Kirim permintaan penawaran
+                </a>
+                <a
+                  href={contact.portfolioPdf}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-outline-invert"
+                >
+                  <Download size={18} aria-hidden="true" />
+                  Portofolio PDF
+                </a>
+              </div>
+            </div>
+            <dl className="contact-list">
+              <div>
+                <dt>Email</dt>
+                <dd>
+                  <a href={`mailto:${contact.email}`}>{contact.email}</a>
+                </dd>
+              </div>
+              <div>
+                <dt>LinkedIn</dt>
+                <dd>
+                  <a href={contact.linkedin} target="_blank" rel="noopener noreferrer">
+                    linkedin.com/in/gantangmasimuja
+                  </a>
+                </dd>
+              </div>
+              <div>
+                <dt>CV</dt>
+                <dd>
+                  <a href={contact.cv} download="CV_Gantang_Masimuja.pdf">
+                    CV_Gantang_Masimuja.pdf
+                  </a>
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+
+        {/* WEB */}
+        <section aria-labelledby="web-title" className="wrap pb-20">
+          <div className="border-t border-rule pt-10 grid gap-8 md:grid-cols-[1fr_2fr]">
+            <div>
+              <h2 id="web-title" className="font-semibold text-lg">
+                Pengembangan web dan otomasi
+              </h2>
+              <p className="mt-2 text-sm text-ink-2 max-w-[36ch]">
+                Selain geofisika, saya membangun situs dan alur kerja otomatis untuk
+                usaha kecil dan menengah.
+              </p>
+            </div>
+            <ul className="grid gap-x-8 gap-y-5 sm:grid-cols-2">
+              {webProjects.map((w) => (
+                <li key={w.title}>
+                  {w.link ? (
+                    <a
+                      href={w.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-link font-semibold"
+                    >
+                      {w.title}
+                    </a>
+                  ) : (
+                    <span className="font-semibold">{w.title}</span>
+                  )}
+                  <p className="text-sm text-ink-2 mt-1">{w.desc}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      </main>
+
+      <footer className="border-t border-rule">
+        <div className="wrap py-8 flex flex-col gap-3 sm:flex-row sm:justify-between text-sm text-ink-2">
+          <span>© {new Date().getFullYear()} Gantang Masimuja</span>
+          <span className="flex gap-5">
+            <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="nav-link">
+              LinkedIn
+            </a>
+            <a href={contact.github} target="_blank" rel="noopener noreferrer" className="nav-link">
+              GitHub
+            </a>
+            <a href={`mailto:${contact.email}`} className="nav-link">
+              Email
+            </a>
+          </span>
         </div>
       </footer>
     </div>
